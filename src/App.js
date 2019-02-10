@@ -5,9 +5,12 @@ import ReactTable from "react-table";
 // import axios from 'axios'
 
 class App extends Component {
+  displayData(){
+
+  }
   render (){
     // url = ''
-    // axios.get(url)
+    //  d = axios.get(url)
     //   .then(response => displayData(response))
     const d = {
       "_id": {
@@ -83,7 +86,14 @@ class App extends Component {
         }
       ]
     }
+
     const data = d.nodes
+    var t = new Date(d.timestamp)
+    data.forEach(function(element){
+      element.timestamp = t.getDate();
+    })
+
+
     const columns = [{
       Header: 'ID',
       accessor: 'id' // String-based value accessors!
@@ -143,6 +153,10 @@ class App extends Component {
       Header: 'Avg 15 Min Load',
       accessor: 'machine_info.load.average_15_min',
       Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+    },{
+      Header: 'Time',
+      accessor: 'timestamp',
+      Cell: props => <span className='string'>{props.value}</span> // Custom cell components!
     }]
    
     return <ReactTable
